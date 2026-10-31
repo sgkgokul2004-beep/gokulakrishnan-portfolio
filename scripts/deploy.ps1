@@ -19,6 +19,8 @@ $env:PATH = "$(Split-Path $gitExe);$(Split-Path $ghExe);$env:PATH"
 if ($LASTEXITCODE -ne 0) {
   throw "GitHub CLI is not authenticated. Run 'gh auth login' in a terminal, then rerun the Portfolio: Publish task."
 }
+& $ghExe auth setup-git
+if ($LASTEXITCODE -ne 0) { throw "GitHub CLI could not configure Git authentication." }
 
 $account = (& $ghExe api user --jq .login).Trim()
 if (-not $account) {
