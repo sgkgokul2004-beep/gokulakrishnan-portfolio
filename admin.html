@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102e28" />
+    <meta name="description" content="Edit the content and appearance of the Gokulakrishnan S portfolio." />
+    <title>Portfolio Studio | Gokulakrishnan S</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <div class="studio-shell">
+      <aside class="studio-sidebar" aria-label="Portfolio editor sections">
+        <a class="studio-brand" href="index.html"><span class="brand-symbol">G</span><span><strong>Portfolio</strong><small>CONTENT STUDIO</small></span></a>
+        <p class="sidebar-label">EDIT PORTFOLIO</p>
+        <nav class="studio-nav" aria-label="Editor sections">
+          <button class="studio-nav-item is-active" type="button" data-view="profile"><span class="nav-index">01</span> Profile</button>
+          <button class="studio-nav-item" type="button" data-view="snapshot"><span class="nav-index">02</span> Highlights</button>
+          <button class="studio-nav-item" type="button" data-view="experience"><span class="nav-index">03</span> Experience</button>
+          <button class="studio-nav-item" type="button" data-view="education"><span class="nav-index">04</span> Education</button>
+          <button class="studio-nav-item" type="button" data-view="project"><span class="nav-index">05</span> Project</button>
+          <button class="studio-nav-item" type="button" data-view="skills"><span class="nav-index">06</span> Skills</button>
+          <button class="studio-nav-item" type="button" data-view="certificates"><span class="nav-index">07</span> Certificates</button>
+          <button class="studio-nav-item" type="button" data-view="appearance"><span class="nav-index">08</span> Appearance</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <span class="storage-indicator"><i></i> LOCAL DRAFT</span>
+          <a href="index.html">← View portfolio</a>
+        </div>
+      </aside>
+
+      <div class="studio-main">
+        <header class="studio-topbar">
+          <div class="breadcrumb"><span>PORTFOLIO</span><b>/</b><strong>EDITOR</strong></div>
+          <div class="topbar-actions">
+            <span class="save-state" id="save-state">All changes saved</span>
+            <a class="preview-button" href="index.html" target="_blank" rel="noopener">Preview <span aria-hidden="true">↗</span></a>
+          </div>
+        </header>
+
+        <main class="editor-content">
+          <div class="editor-heading">
+            <div><p class="eyebrow">YOUR PORTFOLIO / CONTENT CONTROL</p><h1 id="panel-title">Profile</h1><p id="panel-description">The first impression, your story, and the details people use to reach you.</p></div>
+            <div class="draft-stamp"><span class="draft-dot"></span><span>EDITING<br /><b>LOCAL DRAFT</b></span></div>
+          </div>
+
+          <aside class="publish-notice" aria-label="Publishing information">
+            <span class="notice-icon" aria-hidden="true">i</span>
+            <p><strong>Drafts stay in this browser.</strong> Export the content JSON and replace <code>portfolio.json</code> in your project to publish edits to GitHub Pages. No access token is stored here.</p>
+          </aside>
+
+          <form id="editor-form" autocomplete="off" novalidate>
+            <div id="panel-content" aria-live="polite"></div>
+          </form>
+
+          <footer class="editor-savebar">
+            <div class="savebar-note"><span class="save-check" aria-hidden="true">✓</span><span>Autosaves on this device<br /><small>Export when you're ready to publish.</small></span></div>
+            <div class="savebar-actions">
+              <button class="quiet-button" id="import-button" type="button">Import JSON</button>
+              <button class="quiet-button" id="export-button" type="button">Export JSON <span aria-hidden="true">↓</span></button>
+              <button class="publish-button" id="save-button" type="button">Save draft <span aria-hidden="true">↗</span></button>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <input id="import-file" type="file" accept="application/json,.json" hidden />
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "siteTitle": "Gokulakrishnan S",
+  "metaDescription": "Portfolio of Gokulakrishnan S, Electronics and Communication Engineering graduate with experience in customer support and quality control.",
+  "profile": {
+    "name": "Gokulakrishnan S",
+    "role": "Electronics & Communication Engineering",
+    "summary": "A people-first problem solver with a foundation in electronics, quality processes, and customer care.",
+    "location": "Athoor, Gudalur\nThe Nilgiris, Tamil Nadu",
+    "email": "sgkgokul2004@gmail.com",
+    "phone": "+91 6379130588",
+    "availability": "Open to opportunities",
+    "heroImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=85",
+    "heroCaption": "Curiosity, connected."
+  },
+  "theme": {
+    "displayFont": "Space Grotesk",
+    "bodyFont": "DM Sans",
+    "paper": "#f4f3ed",
+    "ink": "#1c2826",
+    "green": "#164b3c",
+    "accent": "#e56c43",
+    "lime": "#d8eb79"
+  },
+  "sectionCopy": {
+    "snapshotTitle": "Learning by doing,\nbuilding with purpose.",
+    "experienceTitle": "Work that builds\ntrust.",
+    "experienceIntro": "From listening carefully to checking every detail, I bring a steady, thoughtful approach to the work in front of me.",
+    "projectEyebrow": "FEATURED PROJECT",
+    "projectTitle": "A quieter way\nto watch over\nsleep.",
+    "skillsTitle": "A mix of people\nskills and systems.",
+    "skillsIntro": "Clear communication on one side. Careful, methodical thinking on the other.",
+    "educationTitle": "Built on a\nstrong base.",
+    "contactTitle": "Let's make\nsomething\nwork.",
+    "contactMessage": "I'm ready to learn, contribute, and take on a new opportunity."
+  },
+  "metrics": [
+    { "value": "02", "unit": "mo", "label": "Customer care experience" },
+    { "value": "06", "unit": "mo", "label": "Quality control internship" },
+    { "value": "01", "unit": "", "label": "IoT + ML project" }
+  ],
+  "experience": [
+    {
+      "category": "Customer support",
+      "role": "Customer Care Support",
+      "company": "PRB3 Industries",
+      "duration": "2 months",
+      "details": [
+        "Handled customer enquiries and provided basic support with clear, professional communication.",
+        "Responded to customer queries by phone and shared relevant information.",
+        "Followed company procedures while supporting a positive customer experience."
+      ]
+    },
+    {
+      "category": "Internship · Quality",
+      "role": "Quality Control Intern",
+      "company": "Salzer Electronics Limited",
+      "duration": "6 months",
+      "details": [
+        "Inspected electronic components and supported routine quality checks.",
+        "Recorded inspection results and identified defective components.",
+        "Worked to quality standards and manufacturing procedures."
+      ]
+    }
+  ],
+  "project": {
+    "kicker": "IoT · Machine learning · Health monitoring",
+    "title": "Non-Intrusive Sleep Monitoring System for Early Cardiac Emergency Detection",
+    "description": "Developed a sleep-monitoring system using sensors and IoT, with machine learning to identify abnormal cardiac patterns and a cloud dashboard with alerts.",
+    "note": "The system combines sensor input with a cloud dashboard and alerts for monitoring.",
+    "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1100&q=85",
+    "imageCaption": "Sensing / analysis / alert",
+    "link": ""
+  },
+  "skillGroups": [
+    {
+      "label": "A / People",
+      "heading": "Working with people",
+      "items": ["Customer handling", "Customer support", "Communication", "Teamwork", "Time management", "Problem-solving"]
+    },
+    {
+      "label": "B / Technical",
+      "heading": "Working with systems",
+      "items": ["MS Excel", "C programming · Basic", "Python · Basic", "Embedded systems", "Internet of Things"]
+    },
+    {
+      "label": "C / Languages",
+      "heading": "Communication",
+      "items": ["Tamil", "English"]
+    }
+  ],
+  "education": [
+    { "year": "2026", "qualification": "B.E. — Electronics and Communication Engineering", "institution": "United Institute of Technology" },
+    { "year": "2022", "qualification": "Higher Secondary Certificate (Class XII)", "institution": "GTR Higher Secondary School, Kotagiri" },
+    { "year": "2020", "qualification": "Secondary School Leaving Certificate (Class X)", "institution": "GTR Higher Secondary School, Kotagiri" }
+  ],
+  "certificates": [],
+  "resume": {
+    "url": "assets/Gokulakrishnan-S-Resume.pdf",
+    "fileName": "Gokulakrishnan-S-Resume.pdf"
+  }
+}
