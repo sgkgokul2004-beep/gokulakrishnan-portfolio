@@ -47,10 +47,14 @@ if ($LASTEXITCODE -ne 0) {
   if ($LASTEXITCODE -ne 0) { throw "Could not create the deployment commit." }
 }
 
-$remote = (& $gitExe remote get-url origin 2>$null)
-if (-not $remote) {
+$remotes = @(& $gitExe remote)
+if ($remotes -notcontains "origin") {
+  $previousErrorActionPreference = $ErrorActionPreference
+  $ErrorActionPreference = "Continue"
   & $ghExe repo view $repository --json nameWithOwner --jq .nameWithOwner 2>$null | Out-Null
-  if ($LASTEXITCODE -eq 0) {
+  $repositoryExists = $LASTEXITCODE -eq 0
+  $ErrorActionPreference = $previousErrorActionPreference
+  if ($repositoryExists) {
     & $gitExe remote add origin $repositoryUrl
   } else {
     & $ghExe repo create $repositoryName --public --source $projectRoot --remote origin
@@ -58,11 +62,16 @@ if (-not $remote) {
   }
 }
 
+$previousErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
 & $ghExe api "repos/$repository/pages" --jq .html_url 2>$null | Out-Null
-if ($LASTEXITCODE -ne 0) {
+$pagesEnabled = $LASTEXITCODE -eq 0
+if (-not $pagesEnabled) {
   & $ghExe api "repos/$repository/pages" --method POST --field build_type=workflow | Out-Null
-  if ($LASTEXITCODE -ne 0) { throw "Could not enable GitHub Pages for $repository." }
+  $pagesEnabled = $LASTEXITCODE -eq 0
 }
+$ErrorActionPreference = $previousErrorActionPreference
+if (-not $pagesEnabled) { throw "Could not enable GitHub Pages for $repository." }
 
 & $gitExe push --set-upstream origin main
 if ($LASTEXITCODE -ne 0) { throw "Push failed. Check the GitHub remote and repository permissions." }
