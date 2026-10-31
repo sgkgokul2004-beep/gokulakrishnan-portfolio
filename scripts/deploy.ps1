@@ -13,6 +13,7 @@ if (-not (Test-Path $ghExe)) {
 if (-not (Test-Path $gitExe)) {
   throw "Git for Windows is not installed. Install it with 'winget install --id Git.Git'."
 }
+$env:PATH = "$(Split-Path $gitExe);$(Split-Path $ghExe);$env:PATH"
 
 & $ghExe auth status
 if ($LASTEXITCODE -ne 0) {
