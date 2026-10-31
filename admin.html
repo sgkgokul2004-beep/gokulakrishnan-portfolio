@@ -38,7 +38,8 @@
           <div class="breadcrumb"><span>PORTFOLIO</span><b>/</b><strong>EDITOR</strong></div>
           <div class="topbar-actions">
             <span class="save-state" id="save-state">All changes saved</span>
-            <a class="preview-button" href="index.html" target="_blank" rel="noopener">Preview draft <span aria-hidden="true">↗</span></a>
+            <a class="preview-button" href="index.html?draft=1" target="_blank" rel="noopener">Preview draft <span aria-hidden="true">↗</span></a>
+            <button class="quiet-button github-connect-button" id="github-connect-button" type="button">Connect GitHub</button>
           </div>
         </header>
 
@@ -50,7 +51,7 @@
 
           <aside class="publish-notice" aria-label="Publishing information">
             <span class="notice-icon" aria-hidden="true">i</span>
-            <p><strong>Drafts stay in this browser.</strong> Open the editor and portfolio preview from the same local server (for example, <code>http://localhost:4173</code). Changes autosave and update the open preview in another tab. To publish them, export the content JSON and replace <code>portfolio.json</code> in your project. No access token is stored here.</p>
+            <p><strong>Drafts stay in this browser until published.</strong> Connect GitHub with a fine-grained token limited to this repository's Contents read/write permission, then choose <b>Publish to all devices</b>. GitHub Pages deploys the update; open portfolio pages refresh automatically. The token stays in this browser session and is never included in the exported portfolio.</p>
           </aside>
 
           <form id="editor-form" autocomplete="off" novalidate>
@@ -58,17 +59,31 @@
           </form>
 
           <footer class="editor-savebar">
-            <div class="savebar-note"><span class="save-check" aria-hidden="true">✓</span><span>Autosaves on this device<br /><small>Export when you're ready to publish.</small></span></div>
+            <div class="savebar-note"><span class="save-check" aria-hidden="true">✓</span><span>Autosaves on this device<br /><small>Publish when you're ready to share.</small></span></div>
             <div class="savebar-actions">
               <button class="quiet-button" id="import-button" type="button">Import JSON</button>
               <button class="quiet-button" id="export-button" type="button">Export JSON <span aria-hidden="true">↓</span></button>
               <button class="publish-button" id="save-button" type="button">Save draft <span aria-hidden="true">↗</span></button>
+              <button class="publish-button publish-global-button" id="publish-button" type="button" disabled>Publish to all devices <span aria-hidden="true">↗</span></button>
             </div>
           </footer>
         </main>
       </div>
     </div>
     <input id="import-file" type="file" accept="application/json,.json" hidden />
+    <dialog class="github-dialog" id="github-dialog" aria-labelledby="github-dialog-title">
+      <form class="github-dialog-content" id="github-connect-form">
+        <p class="eyebrow">SECURE PUBLISHING</p>
+        <h2 id="github-dialog-title">Connect GitHub</h2>
+        <p>Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained personal access token</a> for <code>sgkgokul2004-beep/gokulakrishnan-portfolio</code>, limited to that repository. Grant only <strong>Contents: Read and write</strong> and set a short expiration. The token is kept in this tab's session storage and sent directly to GitHub.</p>
+        <label for="github-token">Fine-grained GitHub token</label>
+        <input id="github-token" name="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required />
+        <div class="github-dialog-actions">
+          <button class="quiet-button" id="github-cancel-button" type="button">Cancel</button>
+          <button class="publish-button" id="github-token-save-button" type="submit">Connect</button>
+        </div>
+      </form>
+    </dialog>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

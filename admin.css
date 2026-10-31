@@ -102,7 +102,23 @@ a { color: inherit; text-decoration: none; }
 .quiet-button, .publish-button { min-height: 38px; padding: 0 12px; border: 1px solid #ccd6ce; background: #fff; font-size: 10px; font-weight: 600; cursor: pointer; }
 .quiet-button:hover { border-color: #778f7d; }
 .publish-button { border-color: var(--studio-green); background: var(--studio-green); color: #fff; }
+.publish-button:disabled { border-color: #aab5ac; background: #aab5ac; cursor: not-allowed; }
 .publish-button span { margin-left: 8px; color: var(--studio-lime); font-size: 15px; }
+.github-dialog { width: min(520px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--studio-line); background: var(--studio-white); color: var(--studio-ink); box-shadow: 0 24px 80px rgb(15 31 25 / 25%); }
+.github-dialog::backdrop { background: rgb(16 35 28 / 55%); backdrop-filter: blur(3px); }
+.github-dialog-content { display: grid; gap: 13px; padding: 28px; }
+.github-dialog-content .eyebrow { margin-bottom: 0; }
+.github-dialog-content h2 { margin: 0; font-family: var(--studio-display); font-size: 25px; font-weight: 600; }
+.github-dialog-content > p:not(.eyebrow) { margin: 0; color: var(--studio-muted); font-size: 11px; line-height: 1.65; }
+.github-dialog-content > p a { color: var(--studio-green); text-decoration: underline; }
+.github-dialog-content code { overflow-wrap: anywhere; color: var(--studio-green); }
+.github-dialog-content label { margin-top: 4px; color: #46564d; font-size: 10px; font-weight: 600; }
+.github-dialog-content input { width: 100%; min-height: 42px; padding: 10px 12px; border: 1px solid #d9e0d9; outline: 0; background: #fcfdfb; color: var(--studio-ink); font-size: 11px; }
+.github-dialog-content input:focus { border-color: #46735f; box-shadow: 0 0 0 3px rgb(22 61 50 / 8%); }
+.github-dialog-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 6px; }
+.github-dialog-actions button { min-width: 100px; }
+.savebar-actions { flex-wrap: wrap; }
+.savebar-actions > button { flex: 1 1 135px; }
 .toast { position: fixed; right: 24px; bottom: 88px; z-index: 15; max-width: min(360px, calc(100vw - 32px)); padding: 12px 15px; transform: translateY(10px); opacity: 0; pointer-events: none; background: var(--studio-ink); color: white; font-size: 11px; transition: opacity 180ms ease, transform 180ms ease; }
 .toast.is-visible { transform: translateY(0); opacity: 1; }
 .toast.is-error { background: #8a382f; }
@@ -146,6 +162,7 @@ a { color: inherit; text-decoration: none; }
   .repeater-card { padding: 13px; }
   .editor-savebar { margin-inline: -18px; padding: 11px 18px; }
   .savebar-actions { width: 100%; gap: 6px; }
-  .quiet-button, .publish-button { flex: 1 1 auto; min-height: 36px; padding-inline: 8px; font-size: 9px; }
+  .savebar-actions > button { flex: 1 1 calc(50% - 6px); min-height: 36px; padding-inline: 8px; font-size: 9px; }
+  .github-dialog-content { padding: 22px; }
   .toast { right: 12px; bottom: 74px; }
 }

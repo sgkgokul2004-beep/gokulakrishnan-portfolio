@@ -1,5 +1,6 @@
 const STORAGE_KEY = "gokulakrishnanPortfolioDraft";
 const COLOR_MODE_KEY = "gokulakrishnanColorMode";
+const DRAFT_PREVIEW = new URLSearchParams(window.location.search).get("draft") === "1";
 const ALLOWED_FONTS = new Set(["Space Grotesk", "DM Sans", "Manrope", "Montserrat", "Lora", "Playfair Display", "Cormorant Garamond", "Source Sans 3"]);
 let publishedPortfolio;
 
@@ -228,10 +229,12 @@ async function initializePortfolio() {
     if (!response.ok) throw new Error("Could not load portfolio content.");
     publishedPortfolio = await response.json();
     let data = publishedPortfolio;
-    try {
-      data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || publishedPortfolio;
-    } catch {
-      data = publishedPortfolio;
+    if (DRAFT_PREVIEW) {
+      try {
+        data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || publishedPortfolio;
+      } catch {
+        data = publishedPortfolio;
+      }
     }
     renderPortfolio(data);
   } catch (error) {
@@ -240,7 +243,7 @@ async function initializePortfolio() {
 }
 
 window.addEventListener("storage", (event) => {
-  if (event.key !== STORAGE_KEY || !publishedPortfolio) return;
+  if (!DRAFT_PREVIEW || event.key !== STORAGE_KEY || !publishedPortfolio) return;
   try {
     const updatedPortfolio = event.newValue ? JSON.parse(event.newValue) : publishedPortfolio;
     if (!updatedPortfolio || typeof updatedPortfolio !== "object") {
@@ -258,4 +261,33 @@ window.addEventListener("storage", (event) => {
   }
 });
 
-initializePortfolio();
+let refreshInProgress = false;
+async function refreshPublishedPortfolio() {
+  if (refreshInProgress || document.visibilityState === "hidden") return;
+  refreshInProgress = true;
+  try {
+    const response = await fetch(`portfolio.json?refresh=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Could not refresh published portfolio content (HTTP ${response.status}).`);
+    const updatedPortfolio = await response.json();
+    if (JSON.stringify(updatedPortfolio) === JSON.stringify(publishedPortfolio)) return;
+    publishedPortfolio = updatedPortfolio;
+    if (!DRAFT_PREVIEW) {
+      const scrollPosition = { x: window.scrollX, y: window.scrollY };
+      renderPortfolio(publishedPortfolio);
+      requestAnimationFrame(() => window.scrollTo(scrollPosition.x, scrollPosition.y));
+      const portfolioStatus = document.querySelector("#portfolio-status");
+      if (portfolioStatus) portfolioStatus.textContent = "Portfolio updated with the latest published content.";
+    }
+  } catch (error) {
+    console.error("Could not refresh the published portfolio.", error);
+    const portfolioStatus = document.querySelector("#portfolio-status");
+    if (portfolioStatus) portfolioStatus.textContent = "The latest portfolio update could not be loaded. Check your connection.";
+  } finally {
+    refreshInProgress = false;
+  }
+}
+
+initializePortfolio().then(() => {
+  window.setInterval(refreshPublishedPortfolio, 30000);
+  document.addEventListener("visibilitychange", refreshPublishedPortfolio);
+});

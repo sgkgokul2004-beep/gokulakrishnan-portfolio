@@ -1,4 +1,6 @@
 const STORAGE_KEY = "gokulakrishnanPortfolioDraft";
+const GITHUB_TOKEN_KEY = "gokulakrishnanPortfolioGitHubToken";
+const GITHUB_CONTENTS_URL = "https://api.github.com/repos/sgkgokul2004-beep/gokulakrishnan-portfolio/contents/portfolio.json";
 const FONT_OPTIONS = ["Space Grotesk", "DM Sans", "Manrope", "Montserrat", "Lora", "Playfair Display", "Cormorant Garamond", "Source Sans 3"];
 const viewDetails = {
   profile: ["Profile", "Your portfolio name, story, contact information, and hero image."],
@@ -18,6 +20,8 @@ let saveTimer;
 const panelContent = document.querySelector("#panel-content");
 const form = document.querySelector("#editor-form");
 const toast = document.querySelector("#toast");
+const githubDialog = document.querySelector("#github-dialog");
+const publishButton = document.querySelector("#publish-button");
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -42,9 +46,128 @@ function saveDraft(showMessage = false) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
     document.querySelector("#save-state").textContent = "Saved in this browser";
     if (showMessage) showToast("Draft saved on this device.");
+    return true;
   } catch {
     document.querySelector("#save-state").textContent = "Storage full";
     showToast("Browser storage is full. Export your JSON before adding more files.", true);
+    return false;
+  }
+}
+
+function updatePublishButton() {
+  const connected = Boolean(getGitHubToken());
+  publishButton.disabled = !connected;
+  document.querySelector("#github-connect-button").textContent = connected ? "GitHub connected" : "Connect GitHub";
+}
+
+function getGitHubToken() {
+  try {
+    return sessionStorage.getItem(GITHUB_TOKEN_KEY);
+  } catch {
+    showToast("This browser blocks session storage. Enable it to connect GitHub securely.", true);
+    return null;
+  }
+}
+
+function githubHeaders(token) {
+  return {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${token}`,
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+}
+
+async function githubRequest(url, options) {
+  const response = await fetch(url, options);
+  const responseBody = await response.text();
+  let result = {};
+  if (responseBody) {
+    try {
+      result = JSON.parse(responseBody);
+    } catch {
+      if (response.ok) throw new Error("GitHub returned an unreadable response.");
+    }
+  }
+  if (!response.ok) {
+    const detail = result.message ? `: ${result.message}` : "";
+    throw new Error(`GitHub returned ${response.status}${detail}`);
+  }
+  return result;
+}
+
+function encodeBase64(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function connectGitHub(event) {
+  event.preventDefault();
+  const tokenInput = document.querySelector("#github-token");
+  const token = tokenInput.value.trim();
+  const connectButton = document.querySelector("#github-token-save-button");
+  connectButton.disabled = true;
+  connectButton.textContent = "Checking access…";
+  try {
+    const result = await githubRequest(`${GITHUB_CONTENTS_URL}?ref=main`, {
+      headers: githubHeaders(token)
+    });
+    if (result.path !== "portfolio.json" || !result.sha) {
+      throw new Error("The token could not access this repository's portfolio.json file.");
+    }
+    sessionStorage.setItem(GITHUB_TOKEN_KEY, token);
+    githubDialog.close();
+    tokenInput.value = "";
+    updatePublishButton();
+    showToast("GitHub connected for this browser session.");
+  } catch (error) {
+    showToast(error.message || "Could not connect to GitHub. Check the token and repository permission.", true);
+  } finally {
+    connectButton.disabled = false;
+    connectButton.textContent = "Connect";
+  }
+}
+
+async function publishPortfolio() {
+  clearTimeout(saveTimer);
+  if (!saveDraft()) return;
+  const token = getGitHubToken();
+  if (!token) {
+    updatePublishButton();
+    showToast("Connect GitHub before publishing.", true);
+    return;
+  }
+
+  publishButton.disabled = true;
+  publishButton.firstChild.textContent = "Publishing… ";
+  document.querySelector("#save-state").textContent = "Publishing to GitHub…";
+  try {
+    const current = await githubRequest(`${GITHUB_CONTENTS_URL}?ref=main`, {
+      headers: githubHeaders(token)
+    });
+    const result = await githubRequest(GITHUB_CONTENTS_URL, {
+      method: "PUT",
+      headers: { ...githubHeaders(token), "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: "Update portfolio content from the admin studio",
+        content: encodeBase64(JSON.stringify(content, null, 2)),
+        sha: current.sha,
+        branch: "main"
+      })
+    });
+    if (!result.commit?.sha) throw new Error("GitHub did not confirm the portfolio update.");
+    document.querySelector("#save-state").textContent = "Published; Pages is deploying";
+    showToast("Published to GitHub. GitHub Pages will update in a few minutes.");
+  } catch (error) {
+    document.querySelector("#save-state").textContent = "Publish failed";
+    showToast(error.message || "Could not publish portfolio.json to GitHub.", true);
+  } finally {
+    publishButton.firstChild.textContent = "Publish to all devices ";
+    updatePublishButton();
   }
 }
 
@@ -404,6 +527,10 @@ document.querySelector("#save-button").addEventListener("click", () => {
   clearTimeout(saveTimer);
   saveDraft(true);
 });
+document.querySelector("#publish-button").addEventListener("click", publishPortfolio);
+document.querySelector("#github-connect-button").addEventListener("click", () => githubDialog.showModal());
+document.querySelector("#github-connect-form").addEventListener("submit", connectGitHub);
+document.querySelector("#github-cancel-button").addEventListener("click", () => githubDialog.close());
 document.querySelector("#export-button").addEventListener("click", downloadJson);
 document.querySelector("#import-button").addEventListener("click", () => document.querySelector("#import-file").click());
 document.querySelector("#import-file").addEventListener("change", (event) => {
@@ -413,6 +540,7 @@ document.querySelector("#import-file").addEventListener("change", (event) => {
 
 async function initialize() {
   try {
+    updatePublishButton();
     const response = await fetch("portfolio.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Could not load portfolio.json. Open this site through the local preview server.");
     defaults = await response.json();

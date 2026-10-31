@@ -16,7 +16,11 @@ Open `http://localhost:4173` for the portfolio or `http://localhost:4173/admin.h
 
 ## Edit content
 
-The editor saves drafts in the current browser. In **Profile**, upload a JPG, PNG, or WebP profile image (up to 12 MB); it is resized and optimized automatically. Keep the editor and **Preview draft** open in tabs on the same local site to see autosaved changes appear in the portfolio automatically. To publish changes, choose **Export JSON**, replace the project's `portfolio.json` with the downloaded file, and commit/push it. Uploaded images and certificates are included in the exported JSON. Browser storage limits apply.
+The editor saves drafts in the current browser. In **Profile**, upload a JPG, PNG, or WebP profile image (up to 12 MB); it is resized and optimized automatically. Use **Preview draft** to see local edits; this preview is separate from the published portfolio.
+
+To publish changes from the admin page, connect a fine-grained GitHub personal access token limited to `sgkgokul2004-beep/gokulakrishnan-portfolio` with only **Contents: Read and write** permission, then choose **Publish to all devices**. Use a short token expiration. The token is stored in this tab's session storage and is not included in portfolio exports. Publishing commits `portfolio.json` to `main`, which triggers the GitHub Pages deployment workflow. The live site normally updates within a few minutes; already-open portfolio pages check for new published content every 30 seconds. Uploaded images and certificates are included in the JSON, and browser storage limits apply.
+
+You can still choose **Export JSON** to download a backup of the current draft. To publish manually, replace the project's `portfolio.json` with the downloaded file and commit/push it.
 
 ## Publish to GitHub Pages
 
