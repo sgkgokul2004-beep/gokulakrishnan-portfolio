@@ -6,6 +6,15 @@
     <meta name="theme-color" content="#f4f3ed" />
     <meta name="description" content="Portfolio of Gokulakrishnan S, Electronics and Communication Engineering graduate with experience in customer support and quality control." />
     <title>Gokulakrishnan S | ECE Graduate & Customer Support</title>
+    <script>
+      try {
+        const savedMode = localStorage.getItem("gokulakrishnanColorMode");
+        const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.colorMode = savedMode === "light" || savedMode === "dark" ? savedMode : systemPrefersDark ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.colorMode = "light";
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,16 +25,23 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <a class="wordmark" href="#top" aria-label="Gokulakrishnan S, home"><span class="wordmark-mark">G</span><span>Gokulakrishnan S</span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span></button>
       <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
         <a href="#experience">Experience</a>
         <a href="#project">Project</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="header-resume" href="assets/Gokulakrishnan-S-Resume.pdf" download>
-        <span>Resume</span><span class="arrow-icon" aria-hidden="true">↗</span>
-      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">
+            <svg class="icon-moon" viewBox="0 0 24 24"><path d="M20.2 15.4A8.4 8.4 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z" /></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
+          </span>
+          <span class="theme-label">Dark</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span></button>
+        <a class="header-resume" href="assets/Gokulakrishnan-S-Resume.pdf" download><span>Resume</span><span class="arrow-icon" aria-hidden="true">↗</span></a>
+      </div>
     </header>
 
     <main id="main">
@@ -43,9 +59,9 @@
             <span>Athoor, Gudalur<br />The Nilgiris, Tamil Nadu</span>
           </div>
         </div>
-        <div class="hero-visual" role="img" aria-label="Detailed electronics circuit board">
-          <div class="visual-caption"><span class="caption-index">01 / 03</span><span>Curiosity, connected.</span></div>
-          <div class="visual-stamp"><span>ECE</span><span class="stamp-line"></span><span>IoT</span></div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="assets/professional-cat.svg" alt="Original illustrated gray cat wearing a green business suit" fetchpriority="high" />
+          <div class="visual-caption">“Curious by nature. Professional by design.”</div>
         </div>
         <div class="hero-bottomline"><span>OPEN TO OPPORTUNITIES</span><span class="scroll-cue">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
       </section>
@@ -97,6 +113,43 @@
         <div class="section-heading compact-heading">
           <div><p class="eyebrow">03 — CAPABILITIES</p><h2 id="capabilities-title">A mix of people<br />skills and <em>systems.</em></h2></div>
           <p class="section-intro">Clear communication on one side. Careful, methodical thinking on the other.</p>
+        </div>
+        <div class="skills-showcase">
+          <div class="skills-showcase-heading"><span class="eyebrow"><span class="status-dot"></span> SKILLS IN MOTION</span><button class="marquee-toggle" type="button" aria-label="Pause skills ticker" aria-pressed="false"><span class="marquee-control-icon" aria-hidden="true"></span><span class="marquee-toggle-label">Pause</span></button></div>
+          <div class="skills-marquee" aria-label="Portfolio skills">
+            <div class="skills-marquee-track">
+              <div class="skills-marquee-group" role="list">
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">CS</span><span>Customer handling</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">CS</span><span>Customer support</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Com</span><span>Communication</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Team</span><span>Teamwork</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">TM</span><span>Time management</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">PS</span><span>Problem-solving</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Xl</span><span>MS Excel</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">C</span><span>C programming · Basic</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Py</span><span>Python · Basic</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">HW</span><span>Embedded systems</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">IoT</span><span>Internet of Things</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Ta</span><span>Tamil</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">En</span><span>English</span></span>
+              </div>
+              <div class="skills-marquee-group skills-marquee-copy" role="list" aria-hidden="true">
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">CS</span><span>Customer handling</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">CS</span><span>Customer support</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Com</span><span>Communication</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Team</span><span>Teamwork</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">TM</span><span>Time management</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">PS</span><span>Problem-solving</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Xl</span><span>MS Excel</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">C</span><span>C programming · Basic</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Py</span><span>Python · Basic</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">HW</span><span>Embedded systems</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">IoT</span><span>Internet of Things</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">Ta</span><span>Tamil</span></span>
+                <span class="skills-marquee-item" role="listitem"><span class="skills-marquee-mark" aria-hidden="true">En</span><span>English</span></span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="skills-grid">
           <div class="skill-group"><span class="skill-index">A / PEOPLE</span><h3>Working with people</h3><ul><li>Customer handling</li><li>Customer support</li><li>Communication</li><li>Teamwork</li><li>Time management</li><li>Problem-solving</li></ul></div>

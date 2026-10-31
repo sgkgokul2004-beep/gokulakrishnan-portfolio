@@ -51,7 +51,7 @@ function saveDraft(showMessage = false) {
 function scheduleSave() {
   document.querySelector("#save-state").textContent = "Saving changes…";
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => saveDraft(), 450);
+  saveTimer = setTimeout(() => saveDraft(), 200);
 }
 
 function field(label, path, options = {}) {
@@ -67,7 +67,10 @@ function field(label, path, options = {}) {
 
 function imageUpload(label, path, hint = "JPG, PNG, or WebP. Images are optimized before saving.") {
   const value = getPath(content, path) || "";
-  const preview = value ? `<div class="upload-preview"><img src="${escapeHtml(value)}" alt="Current image preview" /><span>Current image</span></div>` : "";
+  const preview = value ? path === "profile.heroImage"
+    ? `<div class="upload-preview profile-image-preview"><img src="${escapeHtml(value)}" alt="${escapeHtml(content.profile.heroImageAlt || "Current profile image")}" /><div><strong>Current profile image</strong><span>Preview this browser draft from the top bar. Portraits work best.</span></div></div>`
+    : `<div class="upload-preview"><img src="${escapeHtml(value)}" alt="Current image preview" /><span>Current image</span></div>`
+    : "";
   return `<div class="field span-two"><span class="field-label">${escapeHtml(label)}</span><div class="file-field"><input type="file" accept="image/*" data-upload="${escapeHtml(path)}" data-kind="image" aria-label="Upload ${escapeHtml(label)}" /></div>${hint ? `<small class="field-hint">${escapeHtml(hint)}</small>` : ""}${preview}</div>`;
 }
 
@@ -94,9 +97,10 @@ function panelProfile() {
       ${field("Availability label", "profile.availability")}
       ${field("Email address", "profile.email", { type: "email" })}
       ${field("Phone number", "profile.phone", { type: "tel" })}
-      ${field("Hero image URL", "profile.heroImage", { type: "url", span: true, hint: "Paste a direct image URL, or upload an image below." })}
-      ${imageUpload("Upload hero image", "profile.heroImage")}
-      ${field("Hero image caption", "profile.heroCaption", { span: true })}
+      ${field("Profile image URL", "profile.heroImage", { type: "url", span: true, hint: "Paste a direct image URL, or select a photo file below." })}
+      ${imageUpload("Upload profile image", "profile.heroImage", "JPG, PNG, or WebP up to 12 MB. The editor optimizes it before saving to this browser draft.")}
+      ${field("Image description (alt text)", "profile.heroImageAlt", { span: true, hint: "Describe the image for screen readers. This text appears in the published portfolio." })}
+      ${field("Image caption", "profile.heroCaption", { span: true })}
       ${field("Resume file URL", "resume.url", { span: true, hint: "The included resume is already linked. Upload a new PDF below to replace it." })}
       ${fileUpload("Upload resume PDF", "resume.dataUrl", { accept: ".pdf,application/pdf", namePath: "resume.fileName", mimePath: "resume.mimeType", hint: "PDF only. Keep the file under 2 MB for reliable browser storage." })}
     </div></section>`;
@@ -233,7 +237,12 @@ function processImage(file) {
         const canvas = document.createElement("canvas");
         canvas.width = Math.round(image.naturalWidth * scale);
         canvas.height = Math.round(image.naturalHeight * scale);
-        canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+        const context = canvas.getContext("2d");
+        if (!context) {
+          reject(new Error("Could not optimize the selected image."));
+          return;
+        }
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
         resolve(canvas.toDataURL("image/jpeg", 0.84));
       };
       image.src = reader.result;
@@ -264,8 +273,9 @@ async function handleUpload(input) {
   if (!file) return;
   const path = input.dataset.upload;
   const kind = input.dataset.kind;
-    if (file.size > 2 * 1024 * 1024) {
-    showToast("Choose a file smaller than 2 MB.", true);
+  const maxFileSize = path === "profile.heroImage" ? 12 * 1024 * 1024 : 2 * 1024 * 1024;
+  if (file.size > maxFileSize) {
+    showToast(`Choose a file smaller than ${path === "profile.heroImage" ? "12 MB" : "2 MB"}.`, true);
     input.value = "";
     return;
   }
@@ -293,8 +303,13 @@ async function handleUpload(input) {
     return;
   }
   try {
-      let data = kind === "image" ? await processImage(file) : await readFile(file);
-      if (path === "theme.customFontData") data = data.replace(/^data:[^;]+;/, "data:font/woff2;");
+    let data = kind === "image" ? await processImage(file) : await readFile(file);
+    if (path === "theme.customFontData") data = data.replace(/^data:[^;]+;/, "data:font/woff2;");
+    if (path === "profile.heroImage" && data.length > 2 * 1024 * 1024) {
+      showToast("The optimized image is still too large. Choose a smaller image.", true);
+      input.value = "";
+      return;
+    }
     setPath(content, path, data);
     if (input.dataset.namePath) setPath(content, input.dataset.namePath, file.name);
     if (input.dataset.mimePath) setPath(content, input.dataset.mimePath, file.type || "application/octet-stream");

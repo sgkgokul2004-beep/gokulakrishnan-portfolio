@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title description">
+  <title id="title">An original cartoon cat in a professional suit</title>
+  <desc id="description">A friendly silver-gray cartoon cat wearing a deep green business suit and coral tie, against a soft mint studio background.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#dcebe1"/>
+      <stop offset="1" stop-color="#b9d1c5"/>
+    </linearGradient>
+    <linearGradient id="fur" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eef0e9"/>
+      <stop offset=".55" stop-color="#bdc5bd"/>
+      <stop offset="1" stop-color="#909b96"/>
+    </linearGradient>
+    <linearGradient id="jacket" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#315d4a"/>
+      <stop offset="1" stop-color="#193b30"/>
+    </linearGradient>
+    <clipPath id="portrait">
+      <rect x="34" y="34" width="732" height="932" rx="38"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#portrait)">
+    <path fill="url(#background)" d="M0 0h800v1000H0z"/>
+    <circle cx="650" cy="205" r="152" fill="#eff3db" opacity=".62"/>
+    <circle cx="145" cy="726" r="190" fill="#9dbca9" opacity=".26"/>
+    <path d="M61 853c119-101 231-145 339-145 113 0 227 47 341 145v190H61z" fill="#749781" opacity=".22"/>
+    <ellipse cx="405" cy="965" rx="298" ry="35" fill="#163a2d" opacity=".16"/>
+
+    <path d="M104 1010c18-179 109-282 299-299 181 0 274 104 293 299z" fill="url(#jacket)"/>
+    <path d="m291 721 110 86 110-86 78 71-91 218H302l-91-218z" fill="#f3f0e5"/>
+    <path d="m363 787 38 29 38-29-12 77 30 134-56 79-56-79 30-134z" fill="#e97550"/>
+    <path d="m294 721 107 86-69 49-93-101z" fill="#406c58"/>
+    <path d="m509 721-108 86 70 49 93-101z" fill="#274b3a"/>
+    <path d="m315 835 50 42-19 148h-47l-28-145zM493 835l-50 42 19 148h47l28-145z" fill="#315c48"/>
+    <path d="M401 816v44" fill="none" stroke="#f6a17e" stroke-linecap="round" stroke-width="5"/>
+    <circle cx="401" cy="887" r="5" fill="#d9f27e"/>
+
+    <path d="M257 413c-62-61-83-178-85-288 72 22 125 67 161 137zm287 0c62-61 83-178 85-288-72 22-125 67-161 137z" fill="#929d98" stroke="#707d77" stroke-linejoin="round" stroke-width="12"/>
+    <path d="M216 247c-10-37-15-69-17-97 37 17 64 41 86 74zM586 247c10-37 15-69 17-97-37 17-64 41-86 74z" fill="#e8a7a0"/>
+
+    <path d="M224 333c0-154 72-250 177-250s177 96 177 250c0 164-76 285-177 285s-177-121-177-285z" fill="url(#fur)" stroke="#78847e" stroke-width="11"/>
+    <path d="M264 286c35-29 77-39 119-20-19 45-54 70-102 69zm273 0c-35-29-77-39-119-20 19 45 54 70 102 69z" fill="#f5f2e7"/>
+    <path d="M283 305c27-24 59-33 91-25-14 32-41 49-77 49zM518 305c-27-24-59-33-91-25 14 32 41 49 77 49z" fill="#d9f27e"/>
+    <ellipse cx="338" cy="310" rx="8" ry="15" fill="#28372f"/>
+    <ellipse cx="463" cy="310" rx="8" ry="15" fill="#28372f"/>
+    <circle cx="341" cy="304" r="3" fill="#fff"/>
+    <circle cx="466" cy="304" r="3" fill="#fff"/>
+    <path d="M300 268c24-14 50-17 74-8M427 260c24-9 50-6 74 8" fill="none" stroke="#65736c" stroke-linecap="round" stroke-width="9"/>
+    <path d="M350 392c14-22 33-34 51-34s37 12 51 34c-14 36-32 58-51 58s-37-22-51-58z" fill="#f3eee1"/>
+    <path d="M387 384c0-10 7-17 14-17s14 7 14 17c0 9-7 14-14 14s-14-5-14-14z" fill="#526058"/>
+    <path d="M401 398c0 22-18 37-41 37m41-37c0 22 18 37 41 37" fill="none" stroke="#64716a" stroke-linecap="round" stroke-width="6"/>
+    <path d="M328 397c-29-14-56-18-84-12m84 32c-33-1-58 5-81 19m225-39c29-14 56-18 84-12m-84 32c33-1 58 5 81 19" fill="none" stroke="#69766e" stroke-linecap="round" stroke-width="5"/>
+    <path d="M318 359c17 10 34 10 50 0m66 0c17 10 34 10 50 0" fill="none" stroke="#f4f3e7" stroke-linecap="round" stroke-width="10" opacity=".8"/>
+    <path d="M282 502c34 29 72 43 119 43s85-14 119-43" fill="none" stroke="#8c9790" stroke-linecap="round" stroke-width="7" opacity=".65"/>
+    <path d="M255 412c-17-14-27-35-28-58m319 58c17-14 27-35 28-58" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="8" opacity=".35"/>
+    <path d="M254 483c-17 24-37 40-62 49m355-49c17 24 37 40 62 49" fill="none" stroke="#86918b" stroke-linecap="round" stroke-width="6" opacity=".6"/>
+
+    <rect x="64" y="66" width="132" height="38" rx="19" fill="#fffefa" opacity=".82"/>
+    <circle cx="84" cy="85" r="5" fill="#e97550"/>
+    <text x="99" y="90" fill="#315d4a" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="1.2">PORTFOLIO</text>
+    <rect x="535" y="896" width="196" height="42" rx="21" fill="#fffefa" opacity=".94"/>
+    <text x="633" y="922" fill="#315d4a" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing=".6" text-anchor="middle">READY FOR WHAT'S NEXT</text>
+  </g>
+  <rect x="34" y="34" width="732" height="932" rx="38" fill="none" stroke="#fffefa" stroke-opacity=".8" stroke-width="3"/>
+</svg>

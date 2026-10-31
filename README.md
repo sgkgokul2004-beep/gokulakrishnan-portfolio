@@ -2,6 +2,8 @@
 
 A responsive static portfolio with a browser-based content studio.
 
+The portfolio includes an animated light/dark mode switch in the header. The selected mode is saved in the current browser; the first visit follows the device color preference.
+
 ## Preview locally
 
 From this folder, run:
@@ -14,7 +16,7 @@ Open `http://localhost:4173` for the portfolio or `http://localhost:4173/admin.h
 
 ## Edit content
 
-The editor saves drafts in the current browser. Use **Export JSON** to download the updated `portfolio.json`, replace the project's `portfolio.json`, and commit/push it to publish changes. Image uploads are optimized; PDFs and certificates are included in the exported JSON. Browser storage limits apply, so keep uploaded files small.
+The editor saves drafts in the current browser. In **Profile**, upload a JPG, PNG, or WebP profile image (up to 12 MB); it is resized and optimized automatically. Keep the editor and **Preview draft** open in tabs on the same local site to see autosaved changes appear in the portfolio automatically. To publish changes, choose **Export JSON**, replace the project's `portfolio.json` with the downloaded file, and commit/push it. Uploaded images and certificates are included in the exported JSON. Browser storage limits apply.
 
 ## Publish to GitHub Pages
 
